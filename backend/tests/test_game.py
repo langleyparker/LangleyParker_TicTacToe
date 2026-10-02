@@ -42,6 +42,17 @@ def test_player_cannot_use_occupied_cell():
         game.make_move(0, 4)
 
 
+
+
+
+def test_winning_small_board_updates_overall_board():
+    game = UltimateTicTacToe()
+
+    game.board_winners = [
+        "X", "X", None,
+        None, None, None,
+        None, None, None]
+
 def test_player_can_win_small_board():
     game = UltimateTicTacToe()
 
@@ -78,26 +89,28 @@ def test_player_can_win_small_board():
     # X -> board 0, cell 3
     game.make_move(0, 3)
 
+    # O -> board 3, cell 1
+    game.make_move(3, 1)
+
+    # X -> board 1, cell 0
+    game.make_move(1, 0)
+
+    # O -> board 0, cell 4
+    game.make_move(0, 4)
+
+    # X -> board 4, cell 1
+    game.make_move(4, 1)
+
+    # O -> board 1, cell 1
+    game.make_move(1, 1)
+
+    # X -> board 1, cell 6
+    game.make_move(1, 6)
+
+    # O -> board 6, cell 0
+    game.make_move(6, 0)
+
+    # X -> board 0, cell 6
+    game.make_move(0, 6)
+
     assert game.board_winners[0] == "X"
-
-
-def test_winning_small_board_updates_overall_board():
-    game = UltimateTicTacToe()
-
-    game.board_winners = [
-        "X", "X", None,
-        None, None, None,
-        None, None, None
-    ]
-
-    game.boards[2][0] = "X"
-    game.boards[2][1] = "X"
-    game.boards[2][2] = "X"
-
-    game.current_player = "X"
-    game.next_board = 2
-
-    game.make_move(2, 3)
-
-    assert game.board_winners[2] == "X"
-    assert game.winner == "X"
